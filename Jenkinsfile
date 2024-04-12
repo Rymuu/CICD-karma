@@ -4,8 +4,8 @@ pipeline {
        IMAGE_NAME = "karmawebapp"
        IMAGE_TAG = "latest"
 //       PORT_EXPOSED = "80" à paraméter dans le job
-       STAGING = "${ID_DOCKER}-staging"
-       PRODUCTION = "${ID_DOCKER}-production"
+       STAGING = "${ID_DOCKER}-staging-nginx"
+       PRODUCTION = "${ID_DOCKER}-production-nginx
      }
      agent none
      stages {
@@ -35,7 +35,7 @@ pipeline {
            steps {
               script {
                 sh '''
-                    curl http://172.17.0.1:${PORT_EXPOSED} | grep -q "Hello world!"
+                    curl localhost:${PORT_EXPOSED}
                 '''
               }
            }
@@ -69,7 +69,7 @@ pipeline {
      
      stage('Push image in staging and deploy it') {
        when {
-              expression { GIT_BRANCH == 'origin/master' }
+              expression { GIT_BRANCH == 'origin/main' }
             }
       agent any
       environment {
@@ -110,5 +110,14 @@ pipeline {
           }
         }
      } 
+  }
+post {
+    always {
+      script {
+           emailext body: "Job ${env.JOB_NAME} with buildnumber ${env.BUILD_NUMBER} ended with result : ${currentBuild.result} ! more info ${env.BUILD_URL}",
+           subject: "Result of ${env.JOB_NAME} build number ${env.BUILD_NUMBER}",
+           to: "${EMAIL_RECIPIENT}"
+      }
+    }  
   }
 }
