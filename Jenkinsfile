@@ -5,7 +5,7 @@ pipeline {
        IMAGE_TAG = "latest"
 //       PORT_EXPOSED = "80" à paraméter dans le job
        STAGING = "${ID_DOCKER}-staging-nginx"
-       PRODUCTION = "${ID_DOCKER}-production-nginx
+       PRODUCTION = "${ID_DOCKER}-production-nginx"
      }
      agent none
      stages {
