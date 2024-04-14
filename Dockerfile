@@ -1,5 +1,5 @@
 # Use nginx as the base image
-FROM nginx:stable-perl
+FROM nginx:stable-bullseye-perl
 
 # Set the working directory inside the container
 WORKDIR /usr/share/nginx/html
@@ -9,4 +9,3 @@ COPY . .
 
 # Command to run nginx when the container starts
 CMD ["nginx", "-g", "daemon off;"]
-#First test
