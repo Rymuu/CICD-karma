@@ -9,3 +9,4 @@ COPY . .
 
 # Command to run nginx when the container starts
 CMD ["nginx", "-g", "daemon off;"]
+#First test
