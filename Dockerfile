@@ -1,5 +1,5 @@
 # Use nginx as the base image
-FROM nginx:stable-bullseye-perl
+FROM nginx:perl
 
 # Set the working directory inside the container
 WORKDIR /usr/share/nginx/html
