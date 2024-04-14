@@ -1,5 +1,5 @@
 # Use nginx as the base image
-FROM nginx:slim
+FROM nginx:latest-slim
 
 # Set the working directory inside the container
 WORKDIR /usr/share/nginx/html
