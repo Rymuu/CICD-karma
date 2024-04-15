@@ -1,11 +1,11 @@
-# Use nginx as the base image
+# Utilisation de nginx comme image de base
 FROM nginx:stable-alpine3.17-slim
 
-# Set the working directory inside the container
+# Définition du répertoire de travail à l'intérieur du conteneur
 WORKDIR /usr/share/nginx/html
 
-# Copy the built HTML, JS, and CSS files to the nginx directory
+# Copie des fichiers HTML, JS et CSS générés dans le répertoire nginx
 COPY . .
 
-# Command to run nginx when the container starts
-CMD ["/bin/sh", "-c", "sed -i -e 's/$PORT/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+# Commande pour remplacer dynamiquement le port dans la configuration nginx au démarrage du conteneur
+CMD sed -i "s/listen[ ]*80;/listen \$PORT;/g" /etc/nginx/nginx.conf && nginx -g 'daemon off;'
