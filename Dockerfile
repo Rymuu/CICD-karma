@@ -8,4 +8,4 @@ WORKDIR /usr/share/nginx/html
 COPY . .
 
 # Command to run nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/bin/sh", "-c", "sed -i -e 's/$PORT/'\"$PORT\"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
